@@ -145,16 +145,16 @@ QWinWidget::QWinWidget()
 	//slots inside of QWinWidget. QWinWidget can then talk with the native window as needed 
 	if (p_Widget->minimizeButton)
 	{
-		connect(p_Widget->minimizeButton, &QPushButton::clicked, this, &QWinWidget::onMinimizeButtonClicked);
+		connect(p_Widget->minimizeButton, &QToolButton::clicked, this, &QWinWidget::onMinimizeButtonClicked);
 	}
 	if (p_Widget->maximizeButton)
 	{
-		connect(p_Widget->maximizeButton, &QPushButton::clicked, this, &QWinWidget::onMaximizeButtonClicked);
+		connect(p_Widget->maximizeButton, &QToolButton::clicked, this, &QWinWidget::onMaximizeButtonClicked);
 
 	}
 	if (p_Widget->closeButton)
 	{
-		connect(p_Widget->closeButton, &QPushButton::clicked, this, &QWinWidget::onCloseButtonClicked);
+		connect(p_Widget->closeButton, &QToolButton::clicked, this, &QWinWidget::onCloseButtonClicked);
 	}
 
 	
@@ -288,7 +288,7 @@ void QWinWidget::onMinimizeButtonClicked()
 //Tell the parent native window to maximize or restore as appropriate
 void QWinWidget::onMaximizeButtonClicked()
 {
-    if (p_Widget->maximizeButton->isChecked())
+    if (!::IsZoomed(m_ParentNativeWindowHandle))
     {
         SendMessage(m_ParentNativeWindowHandle, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
     }
