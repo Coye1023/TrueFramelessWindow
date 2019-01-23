@@ -59,52 +59,49 @@
 
 class QWinWidget : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    QWinWidget();
-    ~QWinWidget();
+	QWinWidget();
+	~QWinWidget();
 
-    void show();
-    void center();
-    void showCentered();
-    void setGeometry(int x, int y, int w, int h);
+	void show();
+	void center();
+	void showCentered();
+	void setGeometry(int x, int y, int w, int h);
 
-    HWND getParentWindow() const;
+	HWND getParentWindow() const;
 
-public slots:
-    void onMaximizeButtonClicked();
-    void onMinimizeButtonClicked();
-    void onCloseButtonClicked();
+	public slots:
+	void onMaximizeButtonClicked();
+	void onMinimizeButtonClicked();
+	void onCloseButtonClicked();
 
 protected:
-    void childEvent( QChildEvent *e ) override;
-    bool eventFilter( QObject *o, QEvent *e ) override;
+	void childEvent(QChildEvent *e) override;
+	bool eventFilter(QObject *o, QEvent *e) override;
 
-    bool focusNextPrevChild(bool next) override;
-    void focusInEvent(QFocusEvent *e) override;
+	bool focusNextPrevChild(bool next) override;
+	void focusInEvent(QFocusEvent *e) override;
 
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
-
+	bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
 
 private:
-    QVBoxLayout m_Layout;
+	void saveFocus();
+	void resetFocus();
 
-    Widget* p_Widget;
+private:
+	QVBoxLayout *m_layout = nullptr;
 
-    WinNativeWindow* p_ParentWinNativeWindow;
-    HWND m_ParentNativeWindowHandle;
+	Widget *m_widget = nullptr;
+	WinNativeWindow *m_parentWinNativeWindow = nullptr;
 
-    HWND _prevFocus;
-    bool _reenableParent;
+	HWND m_parentNativeWindowHandle = nullptr;
+	HWND m_prevFocusHandle = nullptr;
 
-    int BORDERWIDTH = 6;		//Adjust this as you wish for # of pixels on the edges to show resize handles
-    int TOOLBARHEIGHT = 40; //Adjust this as you wish for # of pixels from the top to allow dragging the window
+	bool m_bReEnableParent = false;
 
-    void saveFocus();
-    void resetFocus();
-
-
-
+	int BORDERWIDTH = 6;		//Adjust this as you wish for # of pixels on the edges to show resize handles
+	int TOOLBARHEIGHT = 40; //Adjust this as you wish for # of pixels from the top to allow dragging the window
 };
 
 #endif // QWINWIDGET_H

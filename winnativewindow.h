@@ -9,9 +9,7 @@
 
 class WinNativeWindow
 {
-
 public:
-
     WinNativeWindow(const int x, const int y, const int width, const int height);
     ~WinNativeWindow();
 
@@ -28,15 +26,13 @@ public:
     int getMaximumWidth();
     void setGeometry(const int x, const int y, const int width, const int height);
 
+public:
+	HWND hWnd = nullptr;
 
-    HWND hWnd;
-
-    static HWND childWindow;
-    static QWidget* childWidget;
+	static HWND childWindow;
+	static QWidget* childWidget;
 
 private:
-
-
     struct sizeType
     {
         sizeType() : required(false), width(0), height(0) {}
@@ -47,7 +43,6 @@ private:
 
     sizeType minimumSize;
     sizeType maximumSize;
-
 
     DWORD aero_borderless = WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME | WS_CLIPCHILDREN;
 };
